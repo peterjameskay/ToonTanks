@@ -1,6 +1,6 @@
 # Toon Tanks
 
-[![Open Source? Yes!](https://badgen.net/badge/Open%20Source%20%3F/Yes%21/blue?icon=github)](https://github.com/peterjameskay/cryptraider)
+[![Open Source? Yes!](https://badgen.net/badge/Open%20Source%20%3F/Yes%21/blue?icon=github)](https://github.com/peterjameskay/ToonTanks)
 
 ![](https://github.com/peterjameskay/ToonTanks/blob/main/HighresScreenshot00001.png)
 
