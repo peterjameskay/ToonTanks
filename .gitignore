@@ -1,5 +1,13 @@
+.idea/
+.vs/
 .vscode
-Content
-DerivedDataCache
-Intermediate
-Saved
+Build/
+Binaries/
+Content/
+DerivedDataCache/
+Intermediate/
+Saved/
+Config/DefaultEngine.ini
+ECR.png
+*.user
+__pycache__/

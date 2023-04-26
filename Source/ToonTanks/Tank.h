@@ -29,20 +29,29 @@ public:
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
 
+	// Handles the destruction of the tank
+	void HandleDestruction();
+
+	// Gets the player controller from casting AController
+	APlayerController* GetTankPlayerController() const;
+
 private:
+	// Components
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Components", meta = (AllowPrivateAccess = "true"))
 	class USpringArmComponent* SpringArm;
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Components", meta = (AllowPrivateAccess = "true"))
 	class UCameraComponent* Camera;
+
+	// Variables
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Movement", meta = (AllowPrivateAccess = "true"))
 	float Speed = 200;
 	UPROPERTY(EditAnywhere, Category = "Movement")
 	float TurnRate = 45;
 	UPROPERTY(EditAnywhere, Category = "Movement")
 	float InterpSpeed = 10;
+	APlayerController* TankPlayerController;
 
+	// Functions
 	void Move(float Value);
 	void Turn(float Value);
-
-	APlayerController* PlayerControllerRef;
 };
