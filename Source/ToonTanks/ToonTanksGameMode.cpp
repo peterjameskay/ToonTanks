@@ -44,6 +44,7 @@ void AToonTanksGameMode::HandleGameStart()
     // Cast APlayerController to AToonTanksPlayerController
     ToonTanksPlayerController = Cast<AToonTanksPlayerController>(UGameplayStatics::GetPlayerController(this, 0));
 
+    StartGame();
     // Checks to see player controller is not null
     if (ToonTanksPlayerController)
     {
