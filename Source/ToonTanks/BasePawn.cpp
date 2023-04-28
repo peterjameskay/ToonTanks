@@ -31,7 +31,20 @@ ABasePawn::ABasePawn()
 
 void ABasePawn::HandleDestruction()
 {
-
+	if (DeathParticles)
+	{
+		// Spawns the death particles when projectile destroys a Pawn
+		UGameplayStatics::SpawnEmitterAtLocation(this, DeathParticles, GetActorLocation(), GetActorRotation());
+	}
+	if (DeathSound)
+	{
+		// Plays a sound if a pawn is destroyed
+		UGameplayStatics::PlaySoundAtLocation(this, DeathSound, GetActorLocation(), GetActorRotation());
+	}
+	if (DeathCameraShakeClass)
+	{
+		GetWorld()->GetFirstPlayerController()->ClientStartCameraShake(DeathCameraShakeClass);
+	}
 }
 
 // Function to rotate turret and projectile spawn point according to mouse location or pawn location
@@ -59,7 +72,7 @@ void ABasePawn::RotateTurret(FVector LookAtTarget, float InterpSpeed)
 void ABasePawn::Fire()
 {
 	// Spawn a projectile and grab the variable
-	auto Projectile = GetWorld()->SpawnActor<AProjectile>(
+	AProjectile* Projectile = GetWorld()->SpawnActor<AProjectile>(
 		ProjectileClass, 
 		ProjectileSpawnPoint->GetComponentLocation(), 
 		ProjectileSpawnPoint->GetComponentRotation()

@@ -34,7 +34,7 @@ private:
 	class AToonTanksPlayerController* ToonTanksPlayerController;
 
 	UPROPERTY(EditAnywhere)
-	float StartDelay = 3.f;
+	float StartDelay = 4.f;
 
 	int32 TargetTowers = 0;
 	int32 GetTargetTowerCount();

@@ -48,6 +48,8 @@ void ATank::HandleDestruction()
 {
     Super::HandleDestruction();
 
+    // Set alive to false
+    bAlive = false;
     // Instead of destroying, we hide the pawn and disable tick
     SetActorHiddenInGame(true);
     SetActorTickEnabled(false);

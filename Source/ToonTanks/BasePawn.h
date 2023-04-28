@@ -17,6 +17,9 @@ public:
 	// Function to handle destruction of a pawn
 	void HandleDestruction();
 
+	// Variables
+	bool bAlive = true;
+
 protected:
 	// Function to rotate the turret based on mouse cursor or other pawn
 	void RotateTurret(FVector LookAtTarget, float InterpSpeed);
@@ -37,4 +40,14 @@ private:
 	// Variables
 	UPROPERTY(EditDefaultsOnly, Category = "Combat")
 	TSubclassOf<class AProjectile> ProjectileClass;
+	UPROPERTY(EditAnywhere, Category = "Combat")
+	class USoundBase* DeathSound;
+
+	// Setup in blueprint
+	UPROPERTY(EditAnywhere, Category = "Combat")
+	class UParticleSystem* DeathParticles;
+
+	// Setup in blueprint
+	UPROPERTY(EditAnywhere, Category = "Combat")
+	TSubclassOf<class UCameraShakeBase> DeathCameraShakeClass;
 };
