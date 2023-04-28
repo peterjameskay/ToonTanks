@@ -28,17 +28,28 @@ void AToonTanksGameMode::ActorDied(AActor* DeadActor)
             // Disable input and stop cursor by calling SetPlayerEnabledState()
             ToonTanksPlayerController->SetPlayerEnabledState(false);
         }
+        // Ending the game, losing scenario
+        GameOver(false);
     }
     // Checks to see if it's a tower by attempting to cast DeadActor
     else if (ATower* DestroyedTower = Cast<ATower>(DeadActor))
     {
         // Push to the child HandleDestruction in the Tower class
         DestroyedTower->HandleDestruction();
+        // Decrease the amount of towers by one
+        TargetTowers--;
+        // Check to see if target towers is 0, if so GameOver(), winning scenario
+        if (TargetTowers == 0) 
+        {
+            GameOver(true);
+        }
     }
 }
 
 void AToonTanksGameMode::HandleGameStart()
 {
+    // Setting the number of target towers there are to defeat
+    TargetTowers = GetTargetTowerCount();
     // Cast APawn to ATank which is the child
     Tank = Cast<ATank>(UGameplayStatics::GetPlayerPawn(this, 0));
     // Cast APlayerController to AToonTanksPlayerController
@@ -62,4 +73,14 @@ void AToonTanksGameMode::HandleGameStart()
         GetWorldTimerManager().SetTimer(PlayerEnableTimerHandle, PlayerEnableTimerDelegate, StartDelay, false);
     }
 
+}
+
+int32 AToonTanksGameMode::GetTargetTowerCount()
+{
+    // Set the output of actors array
+    TArray<AActor*> Towers;
+    // Getting all of the towers and putting them in the Towers array
+    UGameplayStatics::GetAllActorsOfClass(this, ATower::StaticClass(), Towers);
+    // Returning the number of Towers in the array
+    return Towers.Num();
 }

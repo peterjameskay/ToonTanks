@@ -20,8 +20,13 @@ protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
 
+	// Start Game is called in BeginPlay to use for Blueprint
 	UFUNCTION(BlueprintImplementableEvent)
 	void StartGame();
+
+	// Game Over is called in ActorDied to use for Blueprint
+	UFUNCTION(BlueprintImplementableEvent)
+	void GameOver(bool bWonGame);
 
 private:
 	// Variables
@@ -30,6 +35,9 @@ private:
 
 	UPROPERTY(EditAnywhere)
 	float StartDelay = 3.f;
+
+	int32 TargetTowers = 0;
+	int32 GetTargetTowerCount();
 
 	void HandleGameStart();
 };
