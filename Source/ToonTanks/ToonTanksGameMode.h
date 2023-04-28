@@ -24,4 +24,9 @@ private:
 	// Variables
 	class ATank* Tank;
 	class AToonTanksPlayerController* ToonTanksPlayerController;
+
+	UPROPERTY(EditAnywhere)
+	float StartDelay = 3.f;
+
+	void HandleGameStart();
 };

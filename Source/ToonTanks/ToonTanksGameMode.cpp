@@ -11,10 +11,8 @@ void AToonTanksGameMode::BeginPlay()
 {
 	Super::BeginPlay();
 
-    // Cast APawn to ATank which is the child
-    Tank = Cast<ATank>(UGameplayStatics::GetPlayerPawn(this, 0));
-    // Cast APlayerController to AToonTanksPlayerController
-    ToonTanksPlayerController = Cast<AToonTanksPlayerController>(UGameplayStatics::GetPlayerController(this, 0));
+    // Sets up the game
+    HandleGameStart();
 }
 
 void AToonTanksGameMode::ActorDied(AActor* DeadActor)
@@ -37,4 +35,30 @@ void AToonTanksGameMode::ActorDied(AActor* DeadActor)
         // Push to the child HandleDestruction in the Tower class
         DestroyedTower->HandleDestruction();
     }
+}
+
+void AToonTanksGameMode::HandleGameStart()
+{
+    // Cast APawn to ATank which is the child
+    Tank = Cast<ATank>(UGameplayStatics::GetPlayerPawn(this, 0));
+    // Cast APlayerController to AToonTanksPlayerController
+    ToonTanksPlayerController = Cast<AToonTanksPlayerController>(UGameplayStatics::GetPlayerController(this, 0));
+
+    // Checks to see player controller is not null
+    if (ToonTanksPlayerController)
+    {
+        // Disable input and stop cursor by calling SetPlayerEnabledState()
+        ToonTanksPlayerController->SetPlayerEnabledState(false);
+        // Create timer handle
+        FTimerHandle PlayerEnableTimerHandle;
+        // Creates the delegate for enabling state after timer is finised
+        FTimerDelegate PlayerEnableTimerDelegate = FTimerDelegate::CreateUObject(
+            ToonTanksPlayerController, 
+            &AToonTanksPlayerController::SetPlayerEnabledState, 
+            true
+        );
+        // Sets the timer based on StartDelay variable, after timer the delegate enables input and cursor
+        GetWorldTimerManager().SetTimer(PlayerEnableTimerHandle, PlayerEnableTimerDelegate, StartDelay, false);
+    }
+
 }
