@@ -1,9 +1,6 @@
-.idea/
-.vs/
 .vscode
-Build/
 Binaries/
-Content/
+Platforms/
 DerivedDataCache/
 Intermediate/
 Saved/
