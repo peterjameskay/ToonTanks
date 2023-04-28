@@ -5,6 +5,7 @@
 #include "Kismet/GameplayStatics.h"
 #include "Tank.h"
 #include "Tower.h"
+#include "ToonTanksPlayerController.h"
 
 void AToonTanksGameMode::BeginPlay()
 {
@@ -12,6 +13,8 @@ void AToonTanksGameMode::BeginPlay()
 
     // Cast APawn to ATank which is the child
     Tank = Cast<ATank>(UGameplayStatics::GetPlayerPawn(this, 0));
+    // Cast APlayerController to AToonTanksPlayerController
+    ToonTanksPlayerController = Cast<AToonTanksPlayerController>(UGameplayStatics::GetPlayerController(this, 0));
 }
 
 void AToonTanksGameMode::ActorDied(AActor* DeadActor)
@@ -22,11 +25,10 @@ void AToonTanksGameMode::ActorDied(AActor* DeadActor)
         // Push to the child HandleDestruction in Tank class
         Tank->HandleDestruction();
         // Make sure that it is a player controller
-        if (Tank->GetTankPlayerController())
+        if (ToonTanksPlayerController)
         {
-            // Disable input and stop cursor
-            Tank->DisableInput(Tank->GetTankPlayerController());
-            Tank->GetTankPlayerController()->bShowMouseCursor = false;
+            // Disable input and stop cursor by calling SetPlayerEnabledState()
+            ToonTanksPlayerController->SetPlayerEnabledState(false);
         }
     }
     // Checks to see if it's a tower by attempting to cast DeadActor

@@ -23,4 +23,5 @@ protected:
 private:
 	// Variables
 	class ATank* Tank;
+	class AToonTanksPlayerController* ToonTanksPlayerController;
 };
