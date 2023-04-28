@@ -38,9 +38,10 @@ void AToonTanksGameMode::ActorDied(AActor* DeadActor)
         DestroyedTower->HandleDestruction();
         // Decrease the amount of towers by one
         TargetTowers--;
-        // Check to see if target towers is 0, if so GameOver(), winning scenario
+        // Check to see if there are no more towers
         if (TargetTowers == 0) 
         {
+            // Ending the game, winning scenario
             GameOver(true);
         }
     }
